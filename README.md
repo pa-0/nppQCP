@@ -10,10 +10,42 @@ The C++ Color Picker class can also be reused in other programs.
 
 QuickColorPicker 2.2.1.1 and newer requires Notepad++ 8.4.6 or newer.
 
-Newer versions of Notepad++ use [`SC_TECHNOLOGY_DIRECTWRITE`](https://www.scintilla.org/ScintillaDoc.html#SCI_SETTECHNOLOGY)
-which causes the inline color underlines to not display.  If you have a
-scripting plugin, you can disable `SC_TECHNOLOGY_DIRECTWRITE` for the buffer
-with QuickColorPicker manually.
+Newer versions of Notepad++ use [`SC_TECHNOLOGY_DIRECTWRITE`](https://www.scintilla.org/ScintillaDoc.html#SCI_SETTECHNOLOGY) which causes the inline color underlines to not display.  
+
+If you have a scripting plugin, you can disable `SC_TECHNOLOGY_DIRECTWRITE` for the buffer with QuickColorPicker manually.
+
+>[!IMPORTANT]
+>DirectWrite must be disabled in newer version sof Notepad++ in order for inline color underlines to display correctly. See below for instructions.
+
+### DirectWrite can be disabled either by:
+
+1. The UI in NPP settings itself:
+   Navigate to **Settings** -> **Preferences** -> **MISC**
+   Then, disable the option _DirectWrite (May improve rendering special characters, need to restart Notepad++)_; or,
+   
+3. Using a plugin to set the technology.
+
+ - #### You could  also set a mode supporting ligatures and nppQCP coloring (here, via LUA Script plugin)
+
+   **\*** Note that this **cannot** be set via NPP GUI:
+   - Support both (causes a small delay in line coloring):
+     
+     ```lua
+     editor.Technology = SC_TECHNOLOGY_DIRECTWRITEDC
+     ```
+     
+   - Support coloring lines, but no special characters (i.e. ligatures):
+     
+      ```lua
+      editor.Technology = SC_TECHNOLOGY_DEFAULT
+      ```
+      
+    - Support special characters (i.e. ligatures), but not coloring lines with nppQCP:
+      
+      ```lua
+      editor.Technology = SC_TECHNOLOGY_DIRECTWRITE
+      ```
+
 
 ### [PythonScript](https://github.com/bruderstein/PythonScript/)
 
